@@ -1,6 +1,6 @@
+import { FC } from 'react';
 import styles from '../styles/Symptoms.module.sass';
-import Image from 'next/image';
-import img from '../img/adult.jpg';
+import { SymptomsType } from '../types';
 import img1 from '../img/img1.svg';
 import img2 from '../img/img2.svg';
 import img3 from '../img/img3.svg';
@@ -10,6 +10,7 @@ import img6 from '../img/img6.svg';
 import img7 from '../img/img7.svg';
 import img8 from '../img/img8.svg';
 import CarouselBtn from './CarouselBtn';
+import CircleImage from './CircleImage';
 
 const infoCarousel = [
   {
@@ -82,7 +83,7 @@ const infoCarousel = [
   },
 ];
 
-export default function ({ activePacient }) {
+const Symptoms: FC<SymptomsType> = ({ img, title }) => {
   return (
     <div className={styles.symptoms}>
       <p className={styles.text}>
@@ -96,28 +97,18 @@ export default function ({ activePacient }) {
               <CarouselBtn
                 key={elem.id}
                 deg={elem.deg}
-                img={elem.img}
+                img={elem.img.src}
                 text={elem.text}
                 top={elem.top}
                 left={elem.left}
-                right={elem.right}
                 bottom={elem.bottom}
               />
             );
           })}
         </ul>
-        <div className={styles.img__circle}>
-          <Image
-            className={styles.img__picture}
-            src={activePacient.img.src}
-            alt={''}
-            layout="fill"
-            objectFit="cover"
-            priority
-          />
-          <p className={styles.img__text}>{activePacient.title}</p>
-        </div>
+        <CircleImage img={img} title={title} objectFit={'cover'} />
       </div>
     </div>
   );
-}
+};
+export default Symptoms;

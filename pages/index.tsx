@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, FC, MouseEvent } from 'react';
+
+import { dataType } from '../types';
 
 import Pacient from '../components/Pacient';
 import Symptoms from '../components/Symptoms';
 import Title from '../components/Title';
 import styles from '../styles/Index.module.sass';
-import adult from '../img/adult.jpg';
-import child from '../img/child.jpg';
+const adult = require('../img/adult.jpg');
+const child = require('../img/child.jpg');
 
-const data = [
+const data: dataType = [
   {
     id: 1,
     title: 'Взрослый',
@@ -47,8 +49,8 @@ const data = [
 const Index = () => {
   const [activePacient, setActivePacient] = useState(data[0]);
 
-  const handlerClick = (event) => {
-    const dataFind = data.find((elem) => elem.id == event.target.id);
+  const handlerClick = (id: number) => {
+    const dataFind = data.find((elem) => elem.id == id);
     setActivePacient(dataFind);
   };
 
@@ -56,7 +58,7 @@ const Index = () => {
     <div className={styles.container}>
       <Title text={'А вдруг СМА?'} />
       <Pacient data={data} handlerClick={handlerClick} />
-      <Symptoms activePacient={activePacient} />
+      <Symptoms img={activePacient.img} title={activePacient.title} />
     </div>
   );
 };

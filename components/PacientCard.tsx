@@ -1,15 +1,15 @@
+import { FC } from 'react';
 import styles from '../styles/PacientCard.module.sass';
-import Image from 'next/image';
+import { PacientCardType } from '../types';
+import PacientImage from './PacientImage';
 
-export default function ({ title, img, info, handlerClick, id }) {
+const PacientCard: FC<PacientCardType> = ({ title, img, info, handlerClick, id }) => {
   return (
     <div className={styles.card}>
-      <button onClick={handlerClick} className={styles.title} id={id}>
+      <button onClick={() => handlerClick(id)} className={styles.title}>
         {title}
       </button>
-      <div className={styles.img__wrapper}>
-        <Image src={img} alt={title} layout="fill" objectFit="cover" priority />
-      </div>
+      <PacientImage title={title} img={img} objectFit={'cover'} />
       <ul className={styles.info__list}>
         {info.map((elem) => {
           return (
@@ -21,4 +21,5 @@ export default function ({ title, img, info, handlerClick, id }) {
       </ul>
     </div>
   );
-}
+};
+export default PacientCard;
